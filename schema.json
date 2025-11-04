@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://prompt-maitre.com/schemas/prompt-structure.json",
+  "title": "Prompt Structure Schema",
+  "description": "Schéma JSON standardisé pour les prompts optimisés No Code",
+  "type": "object",
+  "required": ["role", "objective", "context", "tools", "instructions", "output_format", "tone"],
+  "properties": {
+    "role": {
+      "type": "string",
+      "description": "Rôle et expertise de l'assistant IA (ex: 'Expert en automatisation No Code')",
+      "minLength": 20,
+      "maxLength": 500
+    },
+    "objective": {
+      "type": "string",
+      "description": "Objectif clair et mesurable à atteindre",
+      "minLength": 10,
+      "maxLength": 500
+    },
+    "context": {
+      "type": "string",
+      "description": "Contexte d'utilisation, environnement technique et contraintes",
+      "minLength": 10,
+      "maxLength": 1000
+    },
+    "tools": {
+      "type": "array",
+      "description": "Liste des outils No Code impliqués",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Make.com",
+          "Zapier",
+          "n8n",
+          "Airtable",
+          "Notion",
+          "Bubble",
+          "Slack",
+          "Google Sheets",
+          "Webhooks",
+          "API",
+          "OpenAI",
+          "Anthropic Claude",
+          "Automation Platform"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 10
+    },
+    "instructions": {
+      "type": "array",
+      "description": "Liste ordonnée des étapes à suivre",
+      "items": {
+        "type": "string",
+        "minLength": 10
+      },
+      "minItems": 3,
+      "maxItems": 15
+    },
+    "output_format": {
+      "type": "string",
+      "description": "Format attendu pour la réponse (structure, niveau de détail)",
+      "minLength": 20,
+      "maxLength": 1000
+    },
+    "tone": {
+      "type": "string",
+      "description": "Ton et style de communication souhaité",
+      "minLength": 10,
+      "maxLength": 300
+    },
+    "constraints": {
+      "type": "array",
+      "description": "Contraintes techniques ou métier à respecter (optionnel)",
+      "items": {
+        "type": "string",
+        "minLength": 5
+      },
+      "minItems": 0,
+      "maxItems": 10
+    },
+    "examples": {
+      "type": "array",
+      "description": "Exemples concrets pour illustrer (optionnel)",
+      "items": {
+        "type": "string",
+        "minLength": 20
+      },
+      "minItems": 0,
+      "maxItems": 5
+    }
+  },
+  "additionalProperties": false
+}

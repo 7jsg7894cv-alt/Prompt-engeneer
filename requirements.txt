@@ -1,0 +1,30 @@
+# Core dependencies
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.4.2
+
+# CORS and middleware
+python-multipart==0.0.6
+
+# Utilities
+python-dotenv==1.0.0
+
+# Optional: Rate limiting
+slowapi==0.1.9
+
+# Optional: Enhanced language detection
+langdetect==1.0.9
+
+# Optional: Translation support
+deep-translator==1.11.4
+
+# Optional: Monitoring
+prometheus-client==0.19.0
+
+# Development dependencies (remove in production)
+pytest==7.4.3
+pytest-asyncio==0.21.1
+httpx==0.25.1
+
+# JSON validation
+jsonschema==4.20.0
