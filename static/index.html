@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Maître - Générateur de Prompts No Code</title>
+    <meta name="description" content="Transformez vos idées en prompts optimisés pour l'automatisation No Code">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h1>Prompt Maître</h1>
+            </div>
+            <p class="tagline">Générateur Automatique de Prompts No Code</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section">
+                <div class="section-header">
+                    <h2>Décrivez votre besoin</h2>
+                    <p>Exprimez votre idée d'automatisation en langage naturel</p>
+                </div>
+
+                <div class="input-wrapper">
+                    <textarea
+                        id="rawTextInput"
+                        class="input-textarea"
+                        placeholder="Exemple : Je veux connecter Airtable à Slack pour être notifié quand un nouvel enregistrement est ajouté..."
+                        rows="6"
+                    ></textarea>
+                    <div class="character-count">
+                        <span id="charCount">0</span> / 5000 caractères
+                    </div>
+                </div>
+
+                <!-- Quick Examples -->
+                <div class="quick-examples">
+                    <p class="examples-label">Exemples rapides :</p>
+                    <div class="example-buttons">
+                        <button class="example-btn" data-example="1">
+                            Airtable → Slack
+                        </button>
+                        <button class="example-btn" data-example="2">
+                            Workflow IA
+                        </button>
+                        <button class="example-btn" data-example="3">
+                            Synchronisation
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Generate Button -->
+                <button id="generateBtn" class="generate-btn">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Générer le Prompt
+                </button>
+            </section>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state" style="display: none;">
+                <div class="spinner"></div>
+                <p>Génération en cours...</p>
+            </div>
+
+            <!-- Results Section -->
+            <section id="resultsSection" class="results-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Résultats Générés</h2>
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="text">
+                            <svg class="tab-icon" viewBox="0 0 24 24" fill="none">
+                                <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Prompt Texte
+                        </button>
+                        <button class="tab-btn" data-tab="json">
+                            <svg class="tab-icon" viewBox="0 0 24 24" fill="none">
+                                <path d="M4 7V17C4 18.1046 4.89543 19 6 19H8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M20 7V17C20 18.1046 19.1046 19 18 19H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M7 4H8C9.10457 4 10 4.89543 10 6V8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M17 4H16C14.8954 4 14 4.89543 14 6V8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            JSON Structuré
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Text Tab Content -->
+                <div id="textTab" class="tab-content active">
+                    <div class="result-box">
+                        <div class="result-header">
+                            <h3>Prompt Optimisé</h3>
+                            <button class="copy-btn" data-copy="text">
+                                <svg class="copy-icon" viewBox="0 0 24 24" fill="none">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                Copier
+                            </button>
+                        </div>
+                        <pre id="textPrompt" class="prompt-content"></pre>
+                    </div>
+
+                    <!-- Metadata -->
+                    <div class="metadata">
+                        <div class="metadata-item">
+                            <span class="metadata-label">Outils détectés :</span>
+                            <span id="detectedTools" class="metadata-value"></span>
+                        </div>
+                        <div class="metadata-item">
+                            <span class="metadata-label">Intention :</span>
+                            <span id="detectedIntent" class="metadata-value"></span>
+                        </div>
+                        <div class="metadata-item">
+                            <span class="metadata-label">Complexité :</span>
+                            <div id="complexityScore" class="complexity-badge"></div>
+                        </div>
+                        <div class="metadata-item">
+                            <span class="metadata-label">Temps de génération :</span>
+                            <span id="generationTime" class="metadata-value"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JSON Tab Content -->
+                <div id="jsonTab" class="tab-content">
+                    <div class="result-box">
+                        <div class="result-header">
+                            <h3>JSON Standardisé</h3>
+                            <button class="copy-btn" data-copy="json">
+                                <svg class="copy-icon" viewBox="0 0 24 24" fill="none">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                Copier
+                            </button>
+                        </div>
+                        <pre id="jsonPrompt" class="prompt-content json-content"></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Error State -->
+            <div id="errorState" class="error-state" style="display: none;">
+                <svg class="error-icon" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 8V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M12 16H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <h3>Erreur de génération</h3>
+                <p id="errorMessage"></p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>Prompt Maître - Propulsé par IA</p>
+                <div class="footer-links">
+                    <a href="https://github.com/votre-repo" target="_blank">GitHub</a>
+                    <a href="/docs" target="_blank">API Docs</a>
+                    <a href="#" id="aboutLink">À propos</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Script -->
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

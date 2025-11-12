@@ -7,12 +7,14 @@ Serveur production-ready avec documentation auto-générée
 
 from fastapi import FastAPI, HTTPException, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, validator
 from typing import Optional, Dict, List
 import logging
 from datetime import datetime
 import time
+import os
 
 from prompt_generator import generate_from_text, PromptStructure
 
@@ -40,6 +42,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Mount static files directory for web interface
+static_dir = os.path.join(os.path.dirname(__file__), "static")
+if os.path.exists(static_dir):
+    app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 
 # Modèles Pydantic pour validation
@@ -104,9 +111,26 @@ async def log_requests(request: Request, call_next):
 
 
 # Routes
-@app.get("/", tags=["Root"])
+@app.get("/", tags=["Root"], include_in_schema=False)
 async def root():
-    """Page d'accueil de l'API"""
+    """Serve the web interface"""
+    index_path = os.path.join(static_dir, "index.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    else:
+        # Fallback to JSON response if web interface not available
+        return {
+            "message": "Bienvenue sur l'API Prompt Maître",
+            "version": "1.0.0",
+            "documentation": "/docs",
+            "health_check": "/health",
+            "generate_endpoint": "/generate",
+            "web_interface": "Install web interface in /static directory"
+        }
+
+@app.get("/api", tags=["Root"])
+async def api_info():
+    """API information endpoint"""
     return {
         "message": "Bienvenue sur l'API Prompt Maître",
         "version": "1.0.0",
@@ -339,7 +363,8 @@ if __name__ == "__main__":
     print("=" * 80)
     print("🚀 Démarrage de l'API Prompt Maître")
     print("=" * 80)
-    print("\n📍 L'API sera accessible sur : http://localhost:8000")
+    print("\n🌐 Interface Web : http://localhost:8000")
+    print("📍 API Endpoint : http://localhost:8000/api")
     print("📚 Documentation interactive : http://localhost:8000/docs")
     print("📖 Documentation alternative : http://localhost:8000/redoc")
     print("\n" + "=" * 80 + "\n")
