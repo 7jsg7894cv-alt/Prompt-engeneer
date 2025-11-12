@@ -4,24 +4,34 @@
 
 ---
 
-## 🚀 DÉPLOYER EN 3 CLICS (3 MINUTES)
+## 🚀 DÉPLOYER GRATUITEMENT (5 MINUTES)
 
-### Option 1️⃣ : Railway (RECOMMANDÉ)
-
-1. **Aller sur** → https://railway.app
-2. **Cliquer sur** → "Login with GitHub"
-3. **New Project** → "Deploy from GitHub repo" → Sélectionner "Prompt-engeneer"
-4. **Attendre 2 minutes** → Votre site est en ligne ! ✅
-
-📖 **Guide détaillé avec screenshots** : Voir `RAILWAY_DEPLOY_GUIDE.md`
-
-### Option 2️⃣ : Render (Gratuit à 100%)
+### Option 1️⃣ : Render.com (RECOMMANDÉ - 100% GRATUIT) ⭐
 
 1. **Aller sur** → https://render.com
-2. **New** → "Web Service" → Connecter "Prompt-engeneer"
-3. **Attendre 3 minutes** → Site en ligne ! ✅
+2. **Sign up with GitHub**
+3. **New +** → "Web Service" → Connecter "Prompt-engeneer"
+4. **Sélectionner la branche** : `claude/nocode-prompt-generator-011CUo4WSp4RnnVR2Lkm1BjE`
+5. **Attendre 5 minutes** → Votre site est en ligne ! ✅
 
-📖 **Guide complet** : Voir `DEPLOY_NOW.md`
+📖 **Guide détaillé pas-à-pas** : Voir `RENDER_DEPLOY_GUIDE.md` ⭐
+
+**Pourquoi Render ?**
+- ✅ 100% gratuit (pas de carte bancaire)
+- ✅ Deploy automatique depuis GitHub
+- ✅ Supporte Python/FastAPI parfaitement
+- ⚠️ Auto-sleep après 15 min (redémarre en 30s)
+
+### Option 2️⃣ : Railway (Payant - $5+/mois)
+
+⚠️ Railway nécessite maintenant un plan payant pour déployer des web services
+
+1. **Aller sur** → https://railway.app
+2. **Login with GitHub**
+3. **Ajouter une carte bancaire** (plan à partir de $5/mois)
+4. **Deploy from GitHub repo** → Sélectionner "Prompt-engeneer"
+
+📖 **Guide** : Voir `RAILWAY_DEPLOY_GUIDE.md`
 
 ---
 
@@ -70,14 +80,17 @@ python api_server.py
 
 ### JE RECOMMANDE :
 
-**→ Lire `RAILWAY_DEPLOY_GUIDE.md` et suivre les étapes**
+**→ Ouvrir et suivre `RENDER_DEPLOY_GUIDE.md`** ⭐
 
 C'est vraiment aussi simple que :
-1. Cliquer sur "Login with GitHub"
-2. Cliquer sur "Deploy"
-3. Attendre 2 minutes
+1. Aller sur render.com
+2. Sign up with GitHub
+3. New + → Web Service
+4. Connect "Prompt-engeneer"
+5. Attendre 5 minutes
 
-**Temps total : 3 minutes** ⏱️
+**Temps total : 5 minutes** ⏱️
+**Coût : 100% GRATUIT** 💰
 
 ---
 
