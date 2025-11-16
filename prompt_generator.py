@@ -469,15 +469,17 @@ def generate_from_text(raw_text: str) -> Dict[str, str]:
         raw_text: Texte brut décrivant le besoin
 
     Returns:
-        Dict contenant 'text_prompt' et 'json_prompt'
+        Dict contenant 'text_prompt', 'json_prompt' et 'semantic_analysis'
     """
     generator = PromptGenerator()
+    semantic_analysis = generator.analyze_text(raw_text)
     prompt_structure = generator.generate_prompt(raw_text)
 
     return {
         "text_prompt": prompt_structure.to_text_prompt(),
         "json_prompt": prompt_structure.to_json(),
-        "analysis": prompt_structure  # Pour debugging/inspection
+        "analysis": semantic_analysis,  # SemanticAnalysis pour les métadonnées
+        "prompt_structure": prompt_structure  # PromptStructure pour debugging
     }
 
 
